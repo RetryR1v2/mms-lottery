@@ -3,8 +3,21 @@ Config = {}
 -----------------------------------------------------------------------------------
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
+Config.EnableWebHook = false
+Config.WHTitle = 'Der Gewinner ist:'
+Config.WHLink = ''
+Config.WHColor = 16711680 -- red
+Config.WHName = 'Lottery' -- name
+Config.WHLogo = '' -- must be 30x30px
+Config.WHFooterLogo = '' -- must be 30x30px
+Config.WHAvatar = '' -- must be 30x30px
 
-Config.WinnerPickTime = 60  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
+
+-----------------------------------------------------------------------------------
+----------------------------------Winner Settings----------------------------------
+-----------------------------------------------------------------------------------
+
+Config.WinnerPickTime = 1  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
 Config.AnnonceIfNoWinner = true
 Config.AnnonceWinner = true
 

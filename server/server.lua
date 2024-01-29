@@ -94,6 +94,9 @@ RegisterServerEvent('mms-lottery:server:winner',function(winnerticketid)
 end)
 
 RegisterServerEvent('mms-lottery:server:insertwinner',function(winnerfirstname,winneridentifier,winnerlastname,winnerpricemoney)
+    if Config.EnableWebHook == true then
+    VORPcore.AddWebhook(Config.WHTitle, Config.WHLink, Config.TheWinnerIs .. winnerfirstname .. ' ' .. winnerlastname .. ' ' .. Config.HeWins .. winnerpricemoney .. '$', Config.WHColor, Config.WHName, Config.WHLogo, Config.WHFooterLogo, Config.WHAvatar)
+    end
     if Config.AnnonceWinner == true then
         for _, player in ipairs(GetPlayers()) do
             VORPcore.NotifyTip(player, Config.TheWinnerIs .. winnerfirstname .. ' ' .. winnerlastname .. ' ' .. Config.HeWins .. winnerpricemoney .. '$', 10000)  
