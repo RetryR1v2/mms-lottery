@@ -3,7 +3,7 @@ Config = {}
 -----------------------------------------------------------------------------------
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
-Config.EnableWebHook = false
+Config.EnableWebHook = true
 Config.WHTitle = 'Der Gewinner ist'
 Config.WHTitleNoWinner = 'Kein Gewinner'
 Config.WHLink = ''  -- Discord WH link Here
@@ -18,7 +18,7 @@ Config.WHAvatar = '' -- must be 30x30px
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
 
-Config.WinnerPickTime = 1  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
+Config.WinnerPickTime = 60  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
 Config.AnnonceIfNoWinner = true
 Config.AnnonceWinner = true
 
