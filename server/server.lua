@@ -77,6 +77,10 @@ RegisterServerEvent('mms-lottery:server:pickwinner',function ()
                 if Config.EnableWebHook == true then
                     VORPcore.AddWebhook(Config.WHTitleNoWinner, Config.WHLink, Config.NoTicketsBought, Config.WHColor, Config.WHName, Config.WHLogo, Config.WHFooterLogo, Config.WHAvatar)
                 end
+            else 
+                if Config.EnableWebHook == true then
+                    VORPcore.AddWebhook(Config.WHTitleNoWinner, Config.WHLink, Config.NoTicketsBought, Config.WHColor, Config.WHName, Config.WHLogo, Config.WHFooterLogo, Config.WHAvatar)
+                end
             end
         end
     end)

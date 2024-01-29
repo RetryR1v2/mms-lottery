@@ -3,7 +3,7 @@ Config = {}
 -----------------------------------------------------------------------------------
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
-Config.EnableWebHook = true
+Config.EnableWebHook = false
 Config.WHTitle = 'Der Gewinner ist'
 Config.WHTitleNoWinner = 'Kein Gewinner'
 Config.WHLink = ''  -- Discord WH link Here
