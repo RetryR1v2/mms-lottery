@@ -103,7 +103,10 @@ RegisterServerEvent('mms-lottery:server:insertwinner',function(winnerfirstname,w
         end
     else
         for _, player in ipairs(GetPlayers()) do
-            VORPcore.NotifyTip(player, Config.LotteryOver, 10000)  
+            VORPcore.NotifyTip(player, Config.LotteryOver, 10000)
+        end
+        if Config.EnableWebHook == true then
+            VORPcore.AddWebhook(Config.WHTitleNoWinner, Config.WHLink, Config.LotteryOver, Config.WHColor, Config.WHName, Config.WHLogo, Config.WHFooterLogo, Config.WHAvatar)
         end
     end
     MySQL.insert('INSERT INTO `mms_lotterywinner` (firstname, lastname, identifier, pricemoney) VALUES (?, ?, ?, ?)', 

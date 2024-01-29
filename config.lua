@@ -4,8 +4,9 @@ Config = {}
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
 Config.EnableWebHook = false
-Config.WHTitle = 'Der Gewinner ist:'
-Config.WHLink = ''
+Config.WHTitle = 'Der Gewinner ist'
+Config.WHTitleNoWinner = 'Kein Gewinner'
+Config.WHLink = ''  -- Discord WH link Here
 Config.WHColor = 16711680 -- red
 Config.WHName = 'Lottery' -- name
 Config.WHLogo = '' -- must be 30x30px
