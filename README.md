@@ -19,6 +19,7 @@
 - 1.1.0 Initial Release
 - 1.1.1 Added WebHook
 - Webhook now For Winner and if no Winner
+- 1.1.2 Fixed that you Can go in Minus Money buy ticket buy
 
 # installation 
 

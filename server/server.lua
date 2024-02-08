@@ -86,6 +86,13 @@ RegisterServerEvent('mms-lottery:server:pickwinner',function ()
     end)
 end)
 
+VORPcore.Callback.Register('mms-banking:callback:getplayermoney', function(source,cb)
+    local src = source
+    local Character = VORPcore.getUser(src).getUsedCharacter
+    local Money = Character.money
+    cb(Money)
+end)
+
 RegisterServerEvent('mms-lottery:server:winner',function(winnerticketid)
     exports.oxmysql:execute('SELECT * FROM mms_lotteryticket WHERE id = ?', {winnerticketid}, function(result)
         winnerfirstname = result[1].firstname

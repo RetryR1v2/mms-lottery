@@ -178,7 +178,12 @@ end)
 ---------------Buy Ticket Part
 RegisterNetEvent('mms-lottery:client:buyticket')
 AddEventHandler('mms-lottery:client:buyticket',function()
+    local Money =  VORPcore.Callback.TriggerAwait('mms-banking:callback:getplayermoney')
+    if Money >= Config.TicketPrice then
     TriggerServerEvent('mms-lottery:server:buyticket')
+    else
+        VORPcore.NotifyTip(Config.NotEnoghMoney, 5000)
+    end
 end)
 
 
