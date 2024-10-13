@@ -18,7 +18,7 @@ Config.WHAvatar = '' -- must be 30x30px
 ----------------------------------Winner Settings----------------------------------
 -----------------------------------------------------------------------------------
 
-Config.WinnerPickTime = 100  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
+Config.WinnerPickTime = 60  -- Time in Minutes when lotterie pick a Winner  Only a Winner Will be Picket if Tickets are Bought
 Config.AnnonceIfNoWinner = true
 Config.AnnonceWinner = true
 
@@ -56,6 +56,10 @@ Config.LotteryStations = {
         coords = vector3(2531.12, -1202.2, 53.68),   --- Also the Location of Blip and Npc (SaintDenise)
         NpcHeading = 272.05,
     },
+    {
+        coords = vector3(-361.49, -140.6, 47.68),   --- Also the Location of Blip and Npc (Limpany)
+        NpcHeading = 327.02,
+    },
 
 }
 
@@ -63,7 +67,7 @@ Config.LotteryStations = {
 ----------------------------------Jackpot Settings---------------------------------
 -----------------------------------------------------------------------------------
 
-Config.UseStartAmount = true   --- ture/false you can Choose the StartMoney if Checkput Should Start for example by 10$
+Config.UseStartAmount = false   --- ture/false you can Choose the StartMoney if Checkput Should Start for example by 10$
 Config.StartAmount = 10   ------ Jackpot is Startamount + TicketPrice Means the First entry in DB will be 15 then every Ticket bought increased by 5
 Config.TicketPrice = 5   ------- this is the Ticket Price and Also the amount that the jackpot Incresed by Like a Real Lottery
 

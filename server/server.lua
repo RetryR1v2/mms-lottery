@@ -31,8 +31,7 @@ local VORPcore = exports.vorp_core:GetCore()
 
 local jackpot = 'pricemoney'
 
-local counter = Config.WinnerPickTime * 60
-local Minute = Config.WinnerPickTime * 60000 
+local counter = nil
 local timeleft = 0
 
 
@@ -41,16 +40,39 @@ local timeleft = 0
 ----------------------------------------------------------------------------------------------------
 
 Citizen.CreateThread(function ()
+
+    local Timer = MySQL.query.await("SELECT * FROM mms_lotterytimer", { })
+        if #Timer > 0 then
+            counter = Timer[1].timer
+        else
+            counter = Config.WinnerPickTime * 60
+            MySQL.insert('INSERT INTO `mms_lotterytimer` (timer) VALUES (?)',
+            {counter}, function()end)
+        end
+        Citizen.Wait(500)
+
     while counter > 0 do
         Citizen.Wait(2000)
         counter = counter - 2
         timeleft = counter / 60
+        local OldTimer = MySQL.query.await("SELECT * FROM mms_lotterytimer", { })
+        if #OldTimer > 0 then
+            local oldcounter = OldTimer[1].timer
+            local newcounter = OldTimer[1].timer -2
+            MySQL.update('UPDATE `mms_lotterytimer` SET timer = ? WHERE timer = ?',{newcounter, oldcounter})
+        end
         for _, player in ipairs(GetPlayers()) do
-        TriggerClientEvent('mms-lottery:client:updatetimer',player,timeleft)
+            TriggerClientEvent('mms-lottery:client:updatetimer',player,timeleft)
         end
         if counter == 0 then
             TriggerEvent('mms-lottery:server:pickwinner')
             counter = Config.WinnerPickTime * 60
+            local OldTimer = MySQL.query.await("SELECT * FROM mms_lotterytimer", { })
+            if #OldTimer > 0 then
+                local oldcounter = OldTimer[1].timer
+                local newcounter = counter
+                MySQL.update('UPDATE `mms_lotterytimer` SET timer = ? WHERE timer = ?',{newcounter, oldcounter})
+            end
             timeleft = 0
             Citizen.Wait(500)
         end
@@ -138,11 +160,13 @@ end)
 RegisterServerEvent('mms-lottery:server:buyticket',function ()
     local src = source
     local Character = VORPcore.getUser(src).getUsedCharacter
+    local Money = Character.money
     local randomwait = math.random(250,500)
     Citizen.Wait(randomwait) -- Just to catch if More Players are Buying Tickets that Server dont get Spammed
-    local identifier = Character.identifier
+    local identifier = Character.charIdentifier
     local firstname = Character.firstname
     local lastname = Character.lastname
+    if Money >= Config.TicketPrice then
     if Config.LimitTickets == true then
     MySQL.query('SELECT * FROM `mms_lotteryticket` WHERE identifier = ?', {identifier}, function(result)
         if result[1] ~= nil then
@@ -208,6 +232,7 @@ RegisterServerEvent('mms-lottery:server:buyticket',function ()
             end
         end)
     end
+end
 end)
 
 
@@ -253,7 +278,7 @@ end)
 RegisterServerEvent('mms-lottery:server:getwinnings',function ()
     local src = source
     local Character = VORPcore.getUser(src).getUsedCharacter
-    local identifier = Character.identifier
+    local identifier = Character.charIdentifier
     MySQL.query('SELECT * FROM `mms_lotterywinner` WHERE identifier = ?', {identifier}, function(result)
         if result[1] ~= nil  then
             local reward = result[1].pricemoney

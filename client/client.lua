@@ -2,8 +2,8 @@ local VORPcore = exports.vorp_core:GetCore()
 local BccUtils = exports['bcc-utils'].initiate()
 local FeatherMenu =  exports['feather-menu'].initiate()
 
-local CreatedBlips = {}
-local CreatedNpcs = {}
+local CreatedBlips4 = {}
+local CreatedNpcs4 = {}
 local LotteryMenuOpen = false
 
 Citizen.CreateThread(function()
@@ -12,16 +12,17 @@ local LotteryMenuPrompt = BccUtils.Prompts:SetupPromptGroup()
     if Config.LotteryBlips then
         for h,v in pairs(Config.LotteryStations) do
         local lotteryblip = BccUtils.Blips:SetBlip(Config.BoardblipName, 'blip_shop_train', 0.2, v.coords.x,v.coords.y,v.coords.z)
-        CreatedBlips[#CreatedBlips + 1] = lotteryblip
+        CreatedBlips4[#CreatedBlips4 + 1] = lotteryblip
         end
     end
     if Config.CreateNPC then
         for h,v in pairs(Config.LotteryStations) do
         local lotteryped = BccUtils.Ped:Create('u_f_m_tumgeneralstoreowner_01', v.coords.x, v.coords.y, v.coords.z -1, 0, 'world', false)
-        CreatedNpcs[#CreatedNpcs + 1] = lotteryped
+        CreatedNpcs4[#CreatedNpcs4 + 1] = lotteryped
         lotteryped:Freeze()
         lotteryped:SetHeading(v.NpcHeading)
         lotteryped:Invincible()
+        SetBlockingOfNonTemporaryEvents(lotteryped:GetPed(), true)
         end
     end
     while true do
@@ -52,8 +53,8 @@ end)
 
 Citizen.CreateThread(function ()
     LotteryMenu = FeatherMenu:RegisterMenu('lotterymenu', {
-        top = '50%',
-        left = '50%',
+        top = '20%',
+        left = '20%',
         ['720width'] = '500px',
         ['1080width'] = '700px',
         ['2kwidth'] = '700px',
@@ -70,7 +71,18 @@ Citizen.CreateThread(function ()
             }
         },
         draggable = true,
-    })
+    --canclose = false
+}, {
+    opened = function()
+        --print("MENU OPENED!")
+    end,
+    closed = function()
+        --print("MENU CLOSED!")
+    end,
+    topage = function(data)
+        --print("PAGE CHANGED ", data.pageid)
+    end
+})
     LotteryMenuPage1 = LotteryMenu:RegisterPage('seite1')
     LotteryMenuPage1:RegisterElement('header', {
         value = Config.LotteryHeader,
@@ -179,8 +191,9 @@ end)
 RegisterNetEvent('mms-lottery:client:buyticket')
 AddEventHandler('mms-lottery:client:buyticket',function()
     local Money =  VORPcore.Callback.TriggerAwait('mms-banking:callback:getplayermoney')
+    Citizen.Wait(250)
     if Money >= Config.TicketPrice then
-    TriggerServerEvent('mms-lottery:server:buyticket')
+        TriggerServerEvent('mms-lottery:server:buyticket')
     else
         VORPcore.NotifyTip(Config.NotEnoghMoney, 5000)
     end
@@ -191,11 +204,13 @@ end)
 
 ---- CleanUp on Resource Restart 
 
-RegisterNetEvent('onResourceStop',function()
-    for _, npcs in ipairs(CreatedNpcs) do
+RegisterNetEvent('onResourceStop',function(resource)
+    if resource == GetCurrentResourceName() then
+    for _, npcs in ipairs(CreatedNpcs4) do
         npcs:Remove()
 	end
-    for _, blips in ipairs(CreatedBlips) do
+    for _, blips in ipairs(CreatedBlips4) do
         blips:Remove()
 	end
+end
 end)
