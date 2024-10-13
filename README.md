@@ -21,10 +21,11 @@
 - Webhook now For Winner and if no Winner
 - 1.1.2 Fixed that you Can go in Minus Money buy ticket buy
 - 1.1.3 Now Using Character ID in Case of Multicharacter
+- Now Saving the Time to Database starting there where it was at server Restart
 
 # installation 
 
-- Run the SQL files to add Tables in your DB
+- Run the SQL File -- REMOVE OLD TABLE AND RUN NEW FILE
 
 
 # Required
