@@ -64,7 +64,7 @@ Citizen.CreateThread(function ()
         for _, player in ipairs(GetPlayers()) do
             TriggerClientEvent('mms-lottery:client:updatetimer',player,timeleft)
         end
-        if counter == 0 then
+        if counter <= 0 then
             TriggerEvent('mms-lottery:server:pickwinner')
             counter = Config.WinnerPickTime * 60
             local OldTimer = MySQL.query.await("SELECT * FROM mms_lotterytimer", { })

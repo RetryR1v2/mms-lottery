@@ -22,6 +22,7 @@
 - 1.1.2 Fixed that you Can go in Minus Money buy ticket buy
 - 1.1.3 Now Using Character ID in Case of Multicharacter
 - Now Saving the Time to Database starting there where it was at server Restart
+- 1.1.4 Fixed Bug Where timer goes into minus and dont Appear Anymore
 
 # installation 
 
