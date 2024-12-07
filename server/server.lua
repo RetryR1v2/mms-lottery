@@ -50,8 +50,7 @@ Citizen.CreateThread(function ()
             {counter}, function()end)
         end
         Citizen.Wait(500)
-
-    while counter > 0 do
+    while counter ~= nil do
         Citizen.Wait(2000)
         counter = counter - 2
         timeleft = counter / 60
