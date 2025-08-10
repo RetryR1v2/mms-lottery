@@ -73,9 +73,6 @@ Citizen.CreateThread(function ()
             if #OldTimer > 0 then
                 local oldcounter = OldTimer[1].timer
                 local newcounter = counter
-                if newcounter < 0 then
-                    newcounter = 0
-                end
                 MySQL.update('UPDATE `mms_lotterytimer` SET timer = ? WHERE timer = ?',{newcounter, oldcounter})
             end
             timeleft = 0
